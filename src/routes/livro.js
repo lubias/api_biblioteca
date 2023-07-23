@@ -66,11 +66,38 @@ router.get('/obter-livro/:id', conectarBancoDados, async function(req, res, next
         // #swagger.tags = ['Livro']
         let idLivro = req.params.id;
 
+        const checkLivro = await EsquemaLivro.findOne({ _id: idLivro});
+        if(!checkLivro) {
+            throw new Error("Livro não encontrado.");
+        }
+
         const respostaBD = await EsquemaLivro.findOne({ _id: idLivro});
 
         res.status(200).json({
             status: "OK",
             statusMensagem: "Livro listado na resposta com sucesso.",
+            resposta: respostaBD
+        });
+    }catch(error){
+        return tratarErrosEsperados(res, error);
+    }
+});
+
+router.delete('/deletar/:id', conectarBancoDados, async function(req, res, next) {
+    try{
+        // #swagger.tags = ['Livro']
+        let idLivro = req.params.id;
+
+        const checkLivro = await EsquemaLivro.findOne({ _id: idLivro});
+        if(!checkLivro) {
+            throw new Error("Livro não encontrado.");
+        }
+
+        const respostaBD = await EsquemaLivro.deleteOne({ _id: idLivro});
+
+        res.status(200).json({
+            status: "OK",
+            statusMensagem: "Livro excluido com sucesso.",
             resposta: respostaBD
         });
     }catch(error){
