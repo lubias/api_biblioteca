@@ -5,8 +5,8 @@ const swaggerAutogen = require("swagger-autogen")({
   language: "pt-BR",
 });
 
-const outputFile = "./swagger_output.json";
-const endpointFiles = ["../index.js", "../src/routes.js"];
+const outputFile = './swagger_output.json';
+const endpointFiles = ['../index.js', '../src/routes.js'];
 
 let doc = {
   info: {
@@ -34,10 +34,8 @@ let doc = {
 };
 
 swaggerAutogen(outputFile, endpointFiles, doc).then(() => {
-  console.log(
-    "Documentação do Swagger gerada, encontra-se no arquivo em: " + outputFile
-  );
-  if (process.env.NODE_ENV !== "production") {
-    require("../index.js");
-  }
+    console.log("Documentação do Swagger gerada encontra-se no arquivo em: "+outputFile);
+    if(process.env.NODE_ENV !== 'production'){
+        require("../index.js");
+    }
 });
