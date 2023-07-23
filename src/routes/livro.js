@@ -97,7 +97,7 @@ router.delete('/deletar/:id', conectarBancoDados, async function(req, res, next)
 
         res.status(200).json({
             status: "OK",
-            statusMensagem: "Livro excluido com sucesso.",
+            statusMensagem: "Livro excluído com sucesso.",
             resposta: respostaBD
         });
     }catch(error){
