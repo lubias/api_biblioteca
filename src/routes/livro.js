@@ -46,4 +46,36 @@ router.put('/editar/:id', conectarBancoDados, async function(req, res, next) {
     }
 });
 
+router.get('/obter-livros', conectarBancoDados, async function(req, res, next) {
+    try{
+        // #swagger.tags = ['Livro']
+        const respostaBD = await EsquemaLivro.find();
+
+        res.status(200).json({
+            status: "OK",
+            statusMensagem: "Livros listados na resposta com sucesso.",
+            resposta: respostaBD
+        });
+    }catch(error){
+        return tratarErrosEsperados(res, error);
+    }
+});
+
+router.get('/obter-livro/:id', conectarBancoDados, async function(req, res, next) {
+    try{
+        // #swagger.tags = ['Livro']
+        let idLivro = req.params.id;
+
+        const respostaBD = await EsquemaLivro.findOne({ _id: idLivro});
+
+        res.status(200).json({
+            status: "OK",
+            statusMensagem: "Livro listado na resposta com sucesso.",
+            resposta: respostaBD
+        });
+    }catch(error){
+        return tratarErrosEsperados(res, error);
+    }
+});
+
 module.exports = router;
